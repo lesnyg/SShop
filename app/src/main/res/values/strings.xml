@@ -10,4 +10,9 @@
     <string name="textView2">주문번호</string>
     <string name="cbtakeout">테이크아웃</string>
     <string name="btcancel">취소</string>
+    <string name="textView03">메뉴관리</string>
+    <string name="btorder01">추가</string>
+    <string name="btorderlist01">돌아가기</string>
+    <string name="textView04">주문현황</string>
+    <string name="btdate">일자선택</string>
 </resources>
