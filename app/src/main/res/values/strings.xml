@@ -15,4 +15,7 @@
     <string name="btorderlist01">돌아가기</string>
     <string name="textView04">주문현황</string>
     <string name="btdate">일자선택</string>
+    <string name="btcal">계산</string>
+    <string name="btodcancel">취소</string>
+
 </resources>

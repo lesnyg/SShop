@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -39,7 +42,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Date curDate = new Date();
         String strCurTime = sdf.format(curDate);
         tvdate.setText(strCurTime);
+
+    String[] FRUITS = new String[] { "Apple", "Avocado", "Banana","Blueberry"};
+    ListView listView = (ListView) findViewById(R.id.resultList);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listview_single_column,FRUITS);
+    listView.setAdapter(arrayAdapter);
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        public void onItemClick(AdapterView<?> parent, View view,
+        int position, long id) {
+            Intent intent = new Intent(MainActivity.this,OrderActivity.class);
+            startActivityForResult(intent,Activity.RESULT_FIRST_USER);
+
+// 관련 Activity 이동 구현
+        }
+    });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
