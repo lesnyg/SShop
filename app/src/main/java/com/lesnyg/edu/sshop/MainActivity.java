@@ -1,5 +1,6 @@
 package com.lesnyg.edu.sshop;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,13 +29,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btorder:
                 intent = new Intent(this,OrderActivity.class);
-                startActivity(intent); break;
+                startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
             case R.id.btorderlist:
                 intent = new Intent(this,OrderListActivity.class);
-                startActivity(intent); break;
+                startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
             case R.id.btordermanage:
                 intent = new Intent(this,EditMenuActivity.class);
-                startActivity(intent); break;
+                startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
         }
 
     }
