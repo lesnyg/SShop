@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemorder"
+        android:title="주문내용">
+    </item>
+    <item android:id="@+id/itemmenu"
+        android:title="메뉴관리">
+    </item>
+    <item android:id="@+id/itemlist"
+        android:title="주문현황">
+    </item>
+
+</menu>

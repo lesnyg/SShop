@@ -2,13 +2,18 @@ package com.lesnyg.edu.sshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    LinearLayout baseLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +25,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btorderlist.setOnClickListener(this);
         Button btordermanage = findViewById(R.id.btordermanage);
         btordermanage.setOnClickListener(this);
+        baseLayout = (LinearLayout)findViewById(R.id.baseLayout);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu,menu);  //메뉴를 띄우는 행위
+        return true;
+    }
 
+    @Override  //메뉴를 눌렀을때의 행위
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.itemorder:
+                intent = new Intent(this,OrderActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.itemmenu:
+                intent = new Intent(this,EditMenuActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.itemlist:
+                intent = new Intent(this,OrderListActivity.class);
+                startActivity(intent);
+                return true;
+
+        }
+        return false;
     }
 
     @Override
