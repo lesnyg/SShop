@@ -11,6 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     LinearLayout baseLayout;
@@ -26,6 +32,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btordermanage = findViewById(R.id.btordermanage);
         btordermanage.setOnClickListener(this);
         baseLayout = (LinearLayout)findViewById(R.id.baseLayout);
+
+        TextView tvdate = findViewById(R.id.tvdate);
+        //String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.KOREA);
+        Date curDate = new Date();
+        String strCurTime = sdf.format(curDate);
+        tvdate.setText(strCurTime);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu,menu);  //메뉴를 띄우는 행위
         return true;
-    }
+
+        }
 
     @Override  //메뉴를 눌렀을때의 행위
     public boolean onOptionsItemSelected(MenuItem item) {
