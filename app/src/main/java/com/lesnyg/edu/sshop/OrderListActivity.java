@@ -12,7 +12,7 @@ public class OrderListActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_menu);
+        setContentView(R.layout.activity_order_list);
 
         Button btorderlist01 = findViewById(R.id.btorderlist01);
         btorderlist01.setOnClickListener(this);
