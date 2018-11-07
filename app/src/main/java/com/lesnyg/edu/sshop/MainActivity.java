@@ -2,6 +2,7 @@ package com.lesnyg.edu.sshop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,15 +19,20 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+
     LinearLayout baseLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Button btorder = findViewById(R.id.btorder);
         btorder.setOnClickListener(this);
@@ -34,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         baseLayout = (LinearLayout)findViewById(R.id.baseLayout);
 
         TextView tvdate = findViewById(R.id.tvdate);
-        //String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.KOREA);
         Date curDate = new Date();
         String strCurTime = sdf.format(curDate);
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
 
         }
+
 
     }
 }
