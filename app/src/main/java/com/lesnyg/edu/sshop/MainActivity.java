@@ -30,10 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btorder = findViewById(R.id.btorder);
         btorder.setOnClickListener(this);
-        Button btorderlist = findViewById(R.id.btorderlist);
-        btorderlist.setOnClickListener(this);
-        Button btordermanage = findViewById(R.id.btordermanage);
-        btordermanage.setOnClickListener(this);
+
         baseLayout = (LinearLayout)findViewById(R.id.baseLayout);
 
         TextView tvdate = findViewById(R.id.tvdate);
@@ -43,19 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String strCurTime = sdf.format(curDate);
         tvdate.setText(strCurTime);
 
-    String[] FRUITS = new String[] { "Apple", "Avocado", "Banana","Blueberry"};
-    ListView listView = (ListView) findViewById(R.id.resultList);
-    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listview_single_column,FRUITS);
-    listView.setAdapter(arrayAdapter);
-    listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-        public void onItemClick(AdapterView<?> parent, View view,
-        int position, long id) {
-            Intent intent = new Intent(MainActivity.this,OrderActivity.class);
-            startActivityForResult(intent,Activity.RESULT_FIRST_USER);
 
-// 관련 Activity 이동 구현
-        }
-    });
     }
 
     @Override
@@ -95,12 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btorder:
                 intent = new Intent(this,OrderActivity.class);
                 startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
-            case R.id.btorderlist:
-                intent = new Intent(this,OrderListActivity.class);
-                startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
-            case R.id.btordermanage:
-                intent = new Intent(this,EditMenuActivity.class);
-                startActivityForResult(intent,Activity.RESULT_FIRST_USER); break;
+
         }
 
     }
