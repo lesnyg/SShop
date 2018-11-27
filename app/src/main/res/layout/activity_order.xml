@@ -55,8 +55,8 @@
             android:text="@string/bttable4" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listviewmenu"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
@@ -87,6 +87,13 @@
         android:layout_height="match_parent"
         android:gravity="right"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnreset"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+
+            android:text="reset" />
 
         <Button
             android:id="@+id/btcheck"

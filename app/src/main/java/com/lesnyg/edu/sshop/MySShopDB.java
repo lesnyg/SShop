@@ -20,10 +20,10 @@ public class MySShopDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE sshopdb_menu (pkid TEXT PRIMARY KEY, menu TEXT, price int);");
-        db.execSQL("CREATE TABLE sshopdb_seat (pkid TEXT PRIMARY KEY, tablenum TEXT);");
-        db.execSQL("CREATE TABLE sshopdb_order (_id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, menu TEXT,count int,tablenum TEXT);");
-                db.execSQL("INSERT INTO sshopdb_order VALUES( null, '"+"date"+"', '"+"menu"+"','"+"count"+"','"+"tablenum"+"');");
+        db.execSQL("CREATE TABLE sshopdb_menu (_id INTEGER PRIMARY KEY, menu TEXT, price INTEGER);");
+//        db.execSQL("CREATE TABLE sshopdb_seat (pkid TEXT PRIMARY KEY, tablenum TEXT);");
+//        db.execSQL("CREATE TABLE sshopdb_order (_id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, menu TEXT,count int,tablenum TEXT);");
+//        db.execSQL("INSERT INTO sshopdb_order VALUES( null, '"+"date"+"', '"+"menu"+"','"+"count"+"','"+"tablenum"+"');");
         }
 
 
