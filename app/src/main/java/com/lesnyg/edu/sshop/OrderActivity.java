@@ -86,7 +86,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 ((TextView)tvResult).setText(result.toString());
                 break;
             case R.id.btnreset:
-                holder.itemdetail = 0;
+                (TextView)holder.itemdetail = 0;
                 break;
             case R.id.btcancel:
                 Intent intent=null;
