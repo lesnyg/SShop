@@ -4,14 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyDBOpenHelper extends SQLiteOpenHelper {
-    private static final String name = "awe.db";
+    private static final String name = "shop.db";
     private static final SQLiteDatabase.CursorFactory factory = null;
     private static final int version = 1;
 
-    public MyDBOpenHelper(Context context) {
-        super(context, name, factory, version);
-    }
+    public MyDBOpenHelper(Context context) { super(context, name, factory, version); }
 
     public MyDBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
                           int version) {
@@ -20,22 +21,23 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE awe_country (_id INTEGER PRIMARY KEY AUTOINCREMENT, country TEXT, capital TEXT);");
+        db.execSQL("CREATE TABLE shop_menu (_id INTEGER PRIMARY KEY AUTOINCREMENT, menu TEXT, price INTEGER);");
+        db.execSQL("CREATE TABLE shop_table (_id INTEGER PRIMARY KEY AUTOINCREMENT, tableNumber TEXT);");
+        db.execSQL("CREATE TABLE shop_order (_id INTEGER PRIMARY KEY AUTOINCREMENT,menufkid INTEGER,tablefkid INTEGER,date TEXT,count INTEGER);");
 
-        for(int i=0; i<10; i++){
-            db.execSQL("INSERT INTO awe_country VALUES( null, '" + "Country"+ i + "', '" + "Capital" + i + "');");
-        }
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE awe_country ;");
+        db.execSQL("DROP TABLE shop_menu ;");
         onCreate(db);
-//        Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LONG).show();
+//       Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LONG).show();
     }
 
-    public void deleteRecord(SQLiteDatabase mdb, String country) {
-        mdb.execSQL("DELETE FROM awe_country WHERE country='" + country + "';");
-    }
+//    public void deleteRecord(SQLiteDatabase mdb, String menu) {
+//        mdb.execSQL("DELETE FROM shop_menu WHERE menu='" + menu + "';");
+//    }
 
 }

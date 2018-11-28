@@ -9,32 +9,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     ArrayList<HashMap<String,Object>> arrayList = null;
-//    private SQLiteDatabase mdb;
+    SQLiteDatabase mdb;
+
+
     public RecyclerAdapter(ArrayList<HashMap<String,Object>> arrayList){
         this.arrayList = new ArrayList<HashMap<String, Object>>();
         this.arrayList = arrayList;
     }
 
-//    public RecyclerAdapter(SQLiteDatabase db){
-//        this.mdb = db;
-//        String query = new StringBuilder().append("select*from sshopdb_order").toString();
-//        Cursor cursor = mdb.rawQuery(query,null);
-//        ArrayList<HashMap<String,Object>> arrayListTemp = new ArrayList<>();
-//        HashMap<String,Object> hashMap = null;
-//
-//        }
-//
-//    }
+    public RecyclerAdapter(MyDBOpenHelper db){
+        mdb = db.getWritableDatabase();
+       // String query = new StringBuilder().append("select*from shop_menu").toString();
+        Cursor cursor = mdb.rawQuery("select*from shop_menu",null);
+        ArrayList<HashMap<String,Object>> arrayListTemp = new ArrayList<>();
+        HashMap<String,Object> hashMap = null;
+        while (cursor.moveToNext()){
+            hashMap = new HashMap<String, Object>();
+            hashMap.put("title",cursor.getString(1));
+            hashMap.put("price",cursor.getString(2));
+            arrayListTemp.add(hashMap);
+
+            }
+        this.arrayList=arrayListTemp;
+    }
+
+    public  void addItem(int position, HashMap<String,Object> hashMap){
+        this.arrayList.add(hashMap);
+        notifyItemInserted(position);
+    }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView itemtitle, itemdetail,itemprice;
         public ImageButton btnminus;
@@ -50,6 +60,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
     }
 
+
+
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -64,7 +77,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         final HashMap<String,Object> hashMap = arrayList.get(position);
         holder.itemtitle.setText((String)hashMap.get("title"));
         holder.itemprice.setText((String)hashMap.get("price"));
-        holder.itemdetail.setText((String)hashMap.get("count"));
+        holder.itemdetail.setText("0");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
