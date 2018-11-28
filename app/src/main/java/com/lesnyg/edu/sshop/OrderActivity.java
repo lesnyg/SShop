@@ -99,8 +99,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                     "ON menupkid = menufkid AND menupkid = '" + menupkid + "' "+
                     "ON tablepkid = tablefkid AND tablepkid = '" + tablepkid + "' ");
             cursor = mdb.rawQuery(query, null);
-            int result;
-            result = price*count;
+
             tvresult.setText(result);
                 break;
             case R.id.btnreset:

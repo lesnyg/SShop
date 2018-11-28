@@ -15,6 +15,10 @@ import java.util.HashMap;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     ArrayList<HashMap<String,Object>> arrayList = null;
     SQLiteDatabase mdb;
+    int id,price,result=0;
+    String name;
+    int countend;
+    TextView tvresult;
 
 
     public RecyclerAdapter(ArrayList<HashMap<String,Object>> arrayList){
@@ -74,10 +78,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+
         final HashMap<String,Object> hashMap = arrayList.get(position);
         holder.itemtitle.setText((String)hashMap.get("title"));
         holder.itemprice.setText((String)hashMap.get("price"));
         holder.itemdetail.setText("0");
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +98,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 ((TextView)holder.itemdetail).setText(count.toString());
             }
         });
+        String query = "SELECT * FROM shop_menu";
+        Cursor cursor = mdb.rawQuery(query, null);
+        String str = "";
+
+        while (cursor.moveToNext()) {
+            id = cursor.getInt(0);
+            name = cursor.getString(1);
+            price = cursor.getInt(2);
+            Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())
+            result = result+(price*count);
+        }
+
+
     }
 
     @Override

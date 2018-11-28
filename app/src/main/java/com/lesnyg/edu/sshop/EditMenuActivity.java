@@ -67,9 +67,6 @@ public class EditMenuActivity extends AppCompatActivity {
         btnhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=null;
-//                intent = new Intent(this,MainActivity.class);
-//                startActivity(intent);
                 finish();
             }
         });
