@@ -12,6 +12,7 @@ import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -27,10 +28,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     Button btnreset,btncheck,btncancle;
     MyDBOpenHelper dbHelper;
     SQLiteDatabase mdb = null;
-    String menu,price,tablenumber;
+    String menu,price,tablenumber,query,date;
     int menupkid,tablepkid,menufkid,tablefkid;
     TextView tvresult;
     Cursor cursor;
+
 
 
     @Override
@@ -46,7 +48,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         recyclerView.setLayoutManager(layoutManager);
 
         dbHelper = new MyDBOpenHelper(this);
-        adapter = new RecyclerAdapter(dbHelper);
+        mdb = dbHelper.getWritableDatabase();
+        adapter = new RecyclerAdapter(mdb,tvresult);
         recyclerView.setAdapter(adapter);
 
 
@@ -60,10 +63,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         tvresult = findViewById(R.id.tvresult);
 
 
-    }
+        }
 
-    @Override
-    public void onClick(View v) {
+@Override
+public void onClick(View v) {
         TextView tvResult = findViewById(R.id.tvresult);
         RecyclerAdapter.MyViewHolder holder;
         dbHelper = new MyDBOpenHelper(this, "shop.db", null, 1);
@@ -71,64 +74,35 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
 
         switch (v.getId()){
-           case R.id.btcheck:
-////                Integer result = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())*
-////                        Integer.parseInt((HashMap)price.getText().toString());
-////                ((TextView)tvResult).setText(result.toString());
-//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-//            String ordered_date = format.format(new Date());
-//            String query = "SELECT * FROM shop_menu";
-//            Cursor cursor = mdb.rawQuery(query, null);
-//            String str = "";
-//            while (cursor.moveToNext()) {
-//                menupkid = cursor.getInt(0);
-//                menu = cursor.getString(1);
-//                price = cursor.getString(2);
-//                }
-//            query = "SELECT * FROM shop_table";
-//            cursor = mdb.rawQuery(query, null);
-//            str = "";
-//            while (cursor.moveToNext()) {
-//                tablepkid = cursor.getInt(0);
-//                tablenumber = cursor.getString(1);
-//            }
-//
-//            Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString());
-//            mdb.execSQL("INSERT INTO shop_order VALUES (null,'"+menupkid+"','"+tablepkid+"','" + ordered_date + "', " + count +" )");
-//
-//            mdb.execSQL("SELECT menupkid, tablepkid, ordered_date, count "+
-//                    "FROM shop_menu,shop_table INNER JOIN shop_order " +
-//                    "ON menupkid = menufkid AND menupkid = '" + menupkid + "' "+
-//                    "ON tablepkid = tablefkid AND tablepkid = '" + tablepkid + "' ");
-//            cursor = mdb.rawQuery(query, null);
-//
-//                ((TextView)tvresult).setText(result.toString());
-//                break;
-//            case R.id.btnreset:
-//                holder.itemdetail.setText("0");
-//                break;
-            case R.id.btcancel:
-                Intent intent=null;
-                intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                break;
+        case R.id.btcheck:
 
-                        }
-    }
-    @NonNull
-    private String dbRead() {
+        break;
+        case R.id.btnreset:
+        //             (EditText)item_detail.setText("0");
+        break;
+
+        case R.id.btcancel:
+        Intent intent=null;
+        intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        break;
+
+        }
+        }
+@NonNull
+private String dbRead() {
         String query="Select * From shop_menu";
         cursor=mdb.rawQuery(query,null);
         String str="";
 
         while(cursor.moveToNext()) {
-            menupkid = cursor.getInt(0);
-            menu = cursor.getString(1);
-            price = cursor.getString(2);
-            str += (menufkid + " : " + menu + " - " + price + "\n");
+        menupkid = cursor.getInt(0);
+        menu = cursor.getString(1);
+        price = cursor.getString(2);
+        str += (menufkid + " : " + menu + " - " + price + "\n");
         }
         if(str.equals(""))
-            str="no record";
+        str="no record";
         return str;
-    }
-}
+        }
+        }

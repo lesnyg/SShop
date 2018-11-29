@@ -9,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     ArrayList<HashMap<String,Object>> arrayList = null;
+    ArrayList<Integer> arrprice = new ArrayList<>();
     SQLiteDatabase mdb;
-    int id,price,result=0;
+    int id,result=0,i=0,total=0;
     String name;
-    int countend;
-    TextView tvresult;
+    TextView ptvresult;
 
 
     public RecyclerAdapter(ArrayList<HashMap<String,Object>> arrayList){
@@ -26,10 +28,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.arrayList = arrayList;
     }
 
-    public RecyclerAdapter(MyDBOpenHelper db){
-        mdb = db.getWritableDatabase();
-        //String query = new StringBuilder().append("select*from shop_menu").toString();
-        Cursor cursor = mdb.rawQuery("select*from shop_menu",null);
+    public RecyclerAdapter(SQLiteDatabase db,TextView ptvresult){
+        this.ptvresult = ptvresult;
+        this.mdb = db;
+        String query = new StringBuilder().append("select*from shop_menu").toString();
+        Cursor cursor = mdb.rawQuery(query,null);
         ArrayList<HashMap<String,Object>> arrayListTemp = new ArrayList<>();
         HashMap<String,Object> hashMap = null;
         while (cursor.moveToNext()){
@@ -41,12 +44,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             }
         this.arrayList=arrayListTemp;
     }
-
-    public  void addItem(int position, HashMap<String,Object> hashMap){
-        this.arrayList.add(hashMap);
-        notifyItemInserted(position);
-    }
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -79,38 +76,45 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
-        final HashMap<String,Object> hashMap = arrayList.get(position);
-        holder.itemtitle.setText((String)hashMap.get("title"));
-        holder.itemprice.setText((String)hashMap.get("price"));
+        HashMap<String, Object> hashMap = arrayList.get(position);
+        holder.itemtitle.setText((String) hashMap.get("title"));
+        holder.itemprice.setText((String) hashMap.get("price"));
         holder.itemdetail.setText("0");
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())+1;
-                ((TextView)holder.itemdetail).setText(count.toString());
+                Integer c = Integer.parseInt(((TextView) holder.itemdetail).getText().toString()) + 1;
+                ((TextView) holder.itemdetail).setText(c.toString());
+                plusTotal(v, holder);
             }
         });
         holder.btnminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())-1;
-                ((TextView)holder.itemdetail).setText(count.toString());
+                String count = ((TextView) holder.itemdetail).getText().toString();
+                if (count.equals("0") || count == null) {
+                    ((TextView) holder.itemdetail).setText("0");
+                } else {
+                    Integer c = Integer.parseInt(((TextView) holder.itemdetail).getText().toString()) - 1;
+                    ((TextView) holder.itemdetail).setText(c.toString());
+                    minusTotal(v, holder);
+                }
             }
         });
-        String query = "SELECT * FROM shop_menu";
-        Cursor cursor = mdb.rawQuery(query, null);
-        String str = "";
+    }
 
-        while (cursor.moveToNext()) {
-            id = cursor.getInt(0);
-            name = cursor.getString(1);
-            price = cursor.getInt(2);
-         //   Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())
-         //   result = result+(price*count);
-        }
+    private void minusTotal(View v, @NonNull MyViewHolder holder) {
 
+        total -= arrprice.get(holder.getLayoutPosition());
+        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
+        ptvresult.setText(String.valueOf(total));
+    }
 
+    private void plusTotal(View v, @NonNull MyViewHolder holder) {
+
+        total += arrprice.get(holder.getLayoutPosition());
+        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
+        ptvresult.setText(String.valueOf(total));
     }
 
     @Override
@@ -118,5 +122,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return arrayList.size();
     }
 }
+
+
 
 

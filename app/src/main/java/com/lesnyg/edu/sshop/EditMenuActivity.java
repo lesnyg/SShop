@@ -40,6 +40,7 @@ public class EditMenuActivity extends AppCompatActivity {
         tvmenu = (TextView) findViewById(R.id.tvmenu);
 
 
+
         showmenu();
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
