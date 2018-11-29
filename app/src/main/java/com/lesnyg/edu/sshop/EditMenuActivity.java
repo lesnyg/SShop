@@ -15,10 +15,11 @@ public class EditMenuActivity extends AppCompatActivity {
     SQLiteDatabase mdb;
     MyDBOpenHelper dbHelper;
     Button btnsave, btndele,btnhome;
-    String name, price;
+    String name, price,query;
     EditText menu_name, menu_price;
     TextView tvmenu;
     int id;
+    Cursor cursor;
 
 
     @Override
@@ -46,24 +47,22 @@ public class EditMenuActivity extends AppCompatActivity {
                 name = menu_name.getText().toString();
                 price = menu_price.getText().toString();
                 mdb.execSQL("insert into shop_menu values( null, '" + name + "', " + price + " );");
-
-
-                showmenu();
-
-            }
+                showmenu();}
         });
+
         btndele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String dele = "DELETE FROM shop_menu WHERE name='" + name + "'";
-                mdb.execSQL(dele);
-
-
-                showmenu();
-
-            }
+                name = menu_name.getText().toString();
+                query = "Select _id From shop_menu where menu='"+name+"'";
+                cursor = mdb.rawQuery(query,null);
+                String idString = "";
+                if(cursor.moveToNext()) idString = cursor.getString(0);
+                mdb.execSQL("Delete from shop_menu where _id=?", new Object[] {idString});
+                showmenu();}
 
         });
+
         btnhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +73,7 @@ public class EditMenuActivity extends AppCompatActivity {
     }
     private void showmenu(){
     String query = "SELECT * FROM shop_menu";
-    Cursor cursor = mdb.rawQuery(query, null);
+    cursor = mdb.rawQuery(query, null);
     String str = "";
         while (cursor.moveToNext()) {
         id = cursor.getInt(0);

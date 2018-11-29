@@ -28,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public RecyclerAdapter(MyDBOpenHelper db){
         mdb = db.getWritableDatabase();
-       // String query = new StringBuilder().append("select*from shop_menu").toString();
+        //String query = new StringBuilder().append("select*from shop_menu").toString();
         Cursor cursor = mdb.rawQuery("select*from shop_menu",null);
         ArrayList<HashMap<String,Object>> arrayListTemp = new ArrayList<>();
         HashMap<String,Object> hashMap = null;
@@ -106,8 +106,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             id = cursor.getInt(0);
             name = cursor.getString(1);
             price = cursor.getInt(2);
-            Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())
-            result = result+(price*count);
+         //   Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())
+         //   result = result+(price*count);
         }
 
 

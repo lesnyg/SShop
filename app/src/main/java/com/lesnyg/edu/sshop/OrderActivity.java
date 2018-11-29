@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     String menu,price,tablenumber;
     int menupkid,tablepkid,menufkid,tablefkid;
     TextView tvresult;
+    Cursor cursor;
 
 
     @Override
@@ -69,42 +71,42 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
 
         switch (v.getId()){
-/           case R.id.btcheck:
-//                Integer result = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())*
-//                        Integer.parseInt((HashMap)price.getText().toString());
-//                ((TextView)tvResult).setText(result.toString());
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-            String ordered_date = format.format(new Date());
-            String query = "SELECT * FROM shop_menu";
-            Cursor cursor = mdb.rawQuery(query, null);
-            String str = "";
-            while (cursor.moveToNext()) {
-                menupkid = cursor.getInt(0);
-                menu = cursor.getString(1);
-                price = cursor.getString(2);
-                }
-            query = "SELECT * FROM shop_table";
-            cursor = mdb.rawQuery(query, null);
-            str = "";
-            while (cursor.moveToNext()) {
-                tablepkid = cursor.getInt(0);
-                tablenumber = cursor.getString(1);
-            }
-
-            Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString());
-            mdb.execSQL("INSERT INTO shop_order VALUES (null,'"+menupkid+"','"+tablepkid+"','" + ordered_date + "', " + count +" )");
-
-            mdb.execSQL("SELECT menupkid, tablepkid, ordered_date, count "+
-                    "FROM shop_menu,shop_table INNER JOIN shop_order " +
-                    "ON menupkid = menufkid AND menupkid = '" + menupkid + "' "+
-                    "ON tablepkid = tablefkid AND tablepkid = '" + tablepkid + "' ");
-            cursor = mdb.rawQuery(query, null);
-
-            tvresult.setText(result);
-                break;
-            case R.id.btnreset:
-                holder.itemdetail.setText("0");
-                break;
+           case R.id.btcheck:
+////                Integer result = Integer.parseInt(((TextView)holder.itemdetail).getText().toString())*
+////                        Integer.parseInt((HashMap)price.getText().toString());
+////                ((TextView)tvResult).setText(result.toString());
+//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+//            String ordered_date = format.format(new Date());
+//            String query = "SELECT * FROM shop_menu";
+//            Cursor cursor = mdb.rawQuery(query, null);
+//            String str = "";
+//            while (cursor.moveToNext()) {
+//                menupkid = cursor.getInt(0);
+//                menu = cursor.getString(1);
+//                price = cursor.getString(2);
+//                }
+//            query = "SELECT * FROM shop_table";
+//            cursor = mdb.rawQuery(query, null);
+//            str = "";
+//            while (cursor.moveToNext()) {
+//                tablepkid = cursor.getInt(0);
+//                tablenumber = cursor.getString(1);
+//            }
+//
+//            Integer count = Integer.parseInt(((TextView)holder.itemdetail).getText().toString());
+//            mdb.execSQL("INSERT INTO shop_order VALUES (null,'"+menupkid+"','"+tablepkid+"','" + ordered_date + "', " + count +" )");
+//
+//            mdb.execSQL("SELECT menupkid, tablepkid, ordered_date, count "+
+//                    "FROM shop_menu,shop_table INNER JOIN shop_order " +
+//                    "ON menupkid = menufkid AND menupkid = '" + menupkid + "' "+
+//                    "ON tablepkid = tablefkid AND tablepkid = '" + tablepkid + "' ");
+//            cursor = mdb.rawQuery(query, null);
+//
+//                ((TextView)tvresult).setText(result.toString());
+//                break;
+//            case R.id.btnreset:
+//                holder.itemdetail.setText("0");
+//                break;
             case R.id.btcancel:
                 Intent intent=null;
                 intent = new Intent(this,MainActivity.class);
@@ -112,5 +114,21 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
                         }
+    }
+    @NonNull
+    private String dbRead() {
+        String query="Select * From shop_menu";
+        cursor=mdb.rawQuery(query,null);
+        String str="";
+
+        while(cursor.moveToNext()) {
+            menupkid = cursor.getInt(0);
+            menu = cursor.getString(1);
+            price = cursor.getString(2);
+            str += (menufkid + " : " + menu + " - " + price + "\n");
+        }
+        if(str.equals(""))
+            str="no record";
+        return str;
     }
 }
