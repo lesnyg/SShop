@@ -15,44 +15,53 @@
         android:textAlignment="center"
         android:textSize="30sp" />
 
-    <CheckBox
-        android:id="@+id/cbtakeout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cbtakeout" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bttable1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/bttable1" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bttable2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/bttable2" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T1" />
 
-        <Button
-            android:id="@+id/bttable3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/bttable3" />
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T2" />
 
-        <Button
-            android:id="@+id/bttable4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/bttable4" />
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T3" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T4" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="테이크아웃" />
+        </RadioGroup>
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

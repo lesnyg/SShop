@@ -15,39 +15,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    ArrayList<HashMap<String,Object>> arrayList = null;
+    ArrayList<HashMap<String, Object>> arrayList = null;
     ArrayList<Integer> arrprice = new ArrayList<>();
     SQLiteDatabase mdb;
-    int id,result=0,i=0,total=0;
+    int id, result = 0, i = 0, total = 0;
     String name;
     TextView ptvresult;
 
 
-    public RecyclerAdapter(ArrayList<HashMap<String,Object>> arrayList){
+    public RecyclerAdapter(ArrayList<HashMap<String, Object>> arrayList) {
         this.arrayList = new ArrayList<HashMap<String, Object>>();
         this.arrayList = arrayList;
     }
 
-    public RecyclerAdapter(SQLiteDatabase db,TextView ptvresult){
+    public RecyclerAdapter(SQLiteDatabase db, TextView ptvresult) {
         this.ptvresult = ptvresult;
         this.mdb = db;
         String query = new StringBuilder().append("select*from shop_menu").toString();
-        Cursor cursor = mdb.rawQuery(query,null);
-        ArrayList<HashMap<String,Object>> arrayListTemp = new ArrayList<>();
-        HashMap<String,Object> hashMap = null;
-        while (cursor.moveToNext()){
+        Cursor cursor = mdb.rawQuery(query, null);
+        ArrayList<HashMap<String, Object>> arrayListTemp = new ArrayList<>();
+        HashMap<String, Object> hashMap = null;
+        while (cursor.moveToNext()) {
             hashMap = new HashMap<String, Object>();
-            hashMap.put("title",cursor.getString(1));
-            hashMap.put("price",cursor.getString(2));
+            hashMap.put("title", cursor.getString(1));
+            hashMap.put("price", cursor.getString(2));
             arrayListTemp.add(hashMap);
 
-            }
-        this.arrayList=arrayListTemp;
+        }
+        this.arrayList = arrayListTemp;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView itemtitle, itemdetail,itemprice;
+        public TextView itemtitle, itemdetail, itemprice;
         public ImageButton btnminus;
 
         public MyViewHolder(View itemView) {
@@ -60,8 +60,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         }
     }
-
-
 
 
     @NonNull
@@ -112,7 +110,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     private void plusTotal(View v, @NonNull MyViewHolder holder) {
 
-        total += arrprice.get(holder.getLayoutPosition());
+        total += arrprice.get(holder.getLayoutPosition());  //getLayoutPosition() Recycler이 붙는 위치
         Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
         ptvresult.setText(String.valueOf(total));
     }

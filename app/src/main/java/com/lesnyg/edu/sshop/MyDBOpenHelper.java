@@ -10,7 +10,16 @@ import java.util.Date;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
     private static final String name = "shop.db";
     private static final SQLiteDatabase.CursorFactory factory = null;
-    private static final int version = 1;
+    private static final int version = 2;
+
+    public static final String menu = "menu";
+    public static final String price = "price";
+    public static final String count = "count";
+    public static final String _id="id";
+    public static final String menufkid="menufkid";
+    public static final String tablefkid="tablefkid";
+
+
 
     public MyDBOpenHelper(Context context) { super(context, name, factory, version); }
 
@@ -32,8 +41,11 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE shop_menu ;");
+        db.execSQL("DROP TABLE shop_table ;");
+        db.execSQL("DROP TABLE shop_order ;");
+
         onCreate(db);
-//       Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LONG).show();
+//       Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LON.G).show();
     }
 
 //    public void deleteRecord(SQLiteDatabase mdb, String menu) {

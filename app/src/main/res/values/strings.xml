@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SShop</string>
     <string name="btorder">새주문</string>
-    <string name="btcheck">확인</string>
+    <string name="btcheck">주문</string>
     <string name="btorderlist">주문현황</string>
     <string name="btordermanage">주문관리</string>
     <string name="textView">주문관리</string>
