@@ -32,7 +32,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     int menupkid, tablepkid, menufkid, tablefkid;
     TextView tvresult;
     Cursor cursor;
-
+    String dele;
+    RecyclerAdapter.MyViewHolder holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,59 +60,50 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         btncancle.setOnClickListener(this);
         tvresult = findViewById(R.id.tvresult);
 
+        String dele="delete from shop_order";
+        mdb.execSQL(dele);
+
+
+
 
     }
+
 
     @Override
     public void onClick(View v) {
 
-//        switch (v.getId()) {
-//            case R.id.btcheck:
-//                pkid = editTextPkID.getText().toString();
-//                query = "SELECT pkid, country, capital, count(fkid) visitedTotal " +
-//                        "FROM awe_country INNER JOIN awe_country_visitedcount " +
-//                        "ON pkid = fkid AND pkid = '" + pkid + "' ";
-//                cursor = mdb.rawQuery(query, null);
-//                if (cursor.getCount() > 0) {
-//                    cursor.moveToFirst(); ...
-//                    visitedTotal = cursor.getInt(cursor.getColumnIndex("visitedTotal"));
-//                    editTextVisitedTotal.setText(String.valueOf(visitedTotal));
+        switch (v.getId()) {
+            case R.id.btcheck:
+                String query1 = "SELECT * FROM shop_order";
+                cursor = mdb.rawQuery(query1, null);
+                String str = "";
+                int total=0 ;
+                while(cursor.moveToNext()){
+                    price=cursor.getString(2);
+                    Integer count = Integer.parseInt(price);
+                    total = total+count;}
+                    tvresult.setText(String.valueOf(total));
 
 
+                break;
+            case R.id.btnreset:
+            dele="delete from shop_order";
+            mdb.execSQL(dele);
 
-//                Integer count = Integer.parseInt ((TextView)mdb.item_detail.getText().toString());
-//                mdb.execSQL("insert into shop_order values( null, " + menufkid + ", " + tablefkid + ",'"+date+"',"+count+" );");
+            break;
+
+            case R.id.btcancel:
+                String dele="delete from shop_order";
+                mdb.execSQL(dele);
+
+                Intent intent = null;
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
 
 
-
-//                break;
-//            case R.id.btnreset:
-//                //             (EditText)item_detail.setText("0");
-//                break;
-//
-//            case R.id.btcancel:
-//                Intent intent = null;
-//                intent = new Intent(this, MainActivity.class);
-//                startActivity(intent);
-//                break;
-
-        }
 //    }
-
-    @NonNull
-    private String dbRead() {
-        String query = "Select * From shop_menu";
-        cursor = mdb.rawQuery(query, null);
-        String str = "";
-
-        while (cursor.moveToNext()) {
-            menupkid = cursor.getInt(0);
-            menu = cursor.getString(1);
-            price = cursor.getString(2);
-            str += (menufkid + " : " + menu + " - " + price + "\n");
         }
-        if (str.equals(""))
-            str = "no record";
-        return str;
+        }
     }
-}
+
