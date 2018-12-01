@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btorder = findViewById(R.id.btorder);
         btorder.setOnClickListener(this);
 
-        mainRecycler=findViewById(R.id.mainRecycler);
-        mainLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+        mainRecycler=findViewById(R.id.recyclerView);
+        mainLayoutManager = new LinearLayoutManager(this);
         mainRecycler.setLayoutManager(mainLayoutManager);
         mainRecycler.setHasFixedSize(true);
 
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        mainRecycler.setAdapter(mainAdapter);
 //
 //
-        baseLayout = (LinearLayout) findViewById(R.id.baseLayout);
 
         TextView tvdate = findViewById(R.id.tvdate);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);

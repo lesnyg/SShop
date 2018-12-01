@@ -14,33 +14,35 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     SQLiteDatabase mdb;
     MyDBOpenHelper dbHelper;
-    String name, count;
+    int id;
+    String name, price,count;
     String str = "";
     Cursor cursor;
 
     ArrayList<HashMap<String, Object>> arrayList = null;
-//    ArrayList<Integer> arrprice = new ArrayList<>();
-//    private ArrayList<ItemData> arrayList;
-//    public MainAdapter(ArrayList<ItemData> arrayList) {
-//        this.arrayList = arrayList;
-//    }
-//    public MainAdapter(ArrayList<HashMap<String,Object>> arrayList){
-//        this.arrayList = new ArrayList<HashMap<String, Object>>();
-//        this.arrayList = arrayList;
-//    }
-
-//    public MainAdapter(SQLiteDatabase mdb) {
-//
-//    }
-//
-//    public MainAdapter(ArrayList<ItemData> arrayList) {
-//        this.arrayList = arrayList;
-//    }
 
 
+    public MainAdapter(SQLiteDatabase db){
+        this.mdb = db;
+        String query = new StringBuilder().append("select*from shop_menu").toString();
+        Cursor cursor = mdb.rawQuery(query, null);
+        ArrayList<HashMap<String, Object>> arrayListTemp = new ArrayList<>();
+        HashMap<String, Object> hashMap = null;
+        while (cursor.moveToNext()) {
+            hashMap = new HashMap<String, Object>();
+            hashMap.put("id",cursor.getString(0));
+            hashMap.put("title", cursor.getString(1));
+            hashMap.put("price", cursor.getString(2));
+
+            arrayListTemp.add(hashMap);
+
+        }
+        this.arrayList = arrayListTemp;
+
+    }
     public class MyViewHolder extends  RecyclerView.ViewHolder{
         TextView tv1, tv2,tv3,tv4;
         Button btn1,btn2;
@@ -64,24 +66,27 @@ class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-//        MyViewHolder myViewHolder=(MyViewHolder)viewHolder;
-//        //myViewHolder.tv3.setText(str);
-//        myViewHolder.tv3.setText(arrayList.get(i).getName());
-//        myViewHolder.tv4.setText(arrayList.get(i).getNum());
-    }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+  //      showmenu();
+        }
+
 
     @Override
     public int getItemCount() {
         return arrayList.size();
     }
-    private void showmenu() {
-        String query = "SELECT * FROM shop_order";
-        cursor = mdb.rawQuery(query, null);
-        while (cursor.moveToNext()) {
-            name = cursor.getString(1);
-            count = cursor.getString(2);
-            str += ( name + " - " + count + " \n");
 
-    }
-}}
+//    private void showmenu() {
+//int total=0;
+//        String query = "SELECT * FROM shop_order where orderid=1";
+//        cursor = mdb.rawQuery(query, null);
+//        if(cursor.getCount()>0){
+//            cursor.moveToFirst();
+//            total += cursor.getInt(1);
+//        }
+//        ((TextView)holder.tv3).setText(total);
+//
+//
+//    }
+//}
+}
