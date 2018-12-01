@@ -47,15 +47,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView itemtitle, itemdetail, itemprice;
+        public TextView itemid,itemtitle, itemdetail, itemprice;
         public ImageButton btnminus;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            itemid = (TextView) itemView.findViewById(R.id.item_id);
             itemprice = (TextView) itemView.findViewById(R.id.item_price);
             itemtitle = (TextView) itemView.findViewById(R.id.item_title);
             itemdetail = (TextView) itemView.findViewById(R.id.item_detail);
             btnminus = (ImageButton) itemView.findViewById(R.id.btnminus);
+
 
 
         }
@@ -75,6 +77,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
         HashMap<String, Object> hashMap = arrayList.get(position);
+        holder.itemid.setText((String)hashMap.get("id"));
         holder.itemtitle.setText((String) hashMap.get("title"));
         holder.itemprice.setText((String) hashMap.get("price"));
         holder.itemdetail.setText("0");
@@ -83,7 +86,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             public void onClick(View v) {
                 Integer c = Integer.parseInt(((TextView) holder.itemdetail).getText().toString()) + 1;
                 ((TextView) holder.itemdetail).setText(c.toString());
-                plusTotal(v, holder);
+                String price = ((TextView)holder.itemprice).getText().toString();
+                String fkid=((TextView)holder.itemid).getText().toString();
+                String query = "insert into shop_order values (null,'"+fkid+"','"+price+"')";
+                mdb.execSQL(query);
             }
         });
         holder.btnminus.setOnClickListener(new View.OnClickListener() {
@@ -95,25 +101,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 } else {
                     Integer c = Integer.parseInt(((TextView) holder.itemdetail).getText().toString()) - 1;
                     ((TextView) holder.itemdetail).setText(c.toString());
-                    minusTotal(v, holder);
+                    String strpkid=((TextView)holder.itemid).getText().toString();
+                    String query = "delete from shop_order where id='"+strpkid+"'";
+                    mdb.execSQL(query);
                 }
             }
         });
     }
 
-    private void minusTotal(View v, @NonNull MyViewHolder holder) {
-
-        total -= arrprice.get(holder.getLayoutPosition());
-        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
-        ptvresult.setText(String.valueOf(total));
-    }
-
-    private void plusTotal(View v, @NonNull MyViewHolder holder) {
-
-        total += arrprice.get(holder.getLayoutPosition());  //getLayoutPosition() Recycler이 붙는 위치
-        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
-        ptvresult.setText(String.valueOf(total));
-    }
+//    private void minusTotal(View v, @NonNull MyViewHolder holder) {
+//
+//        total -= arrprice.get(holder.getLayoutPosition());
+//        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
+//        ptvresult.setText(String.valueOf(total));
+//    }
+//
+//    private void plusTotal(View v, @NonNull MyViewHolder holder) {
+//
+//        total += arrprice.get(holder.getLayoutPosition());  //getLayoutPosition() Recycler이 붙는 위치
+//        Toast.makeText(v.getContext(), "Total : " + String.valueOf(total), Toast.LENGTH_SHORT).show();
+//        ptvresult.setText(String.valueOf(total));
+//    }
 
     @Override
     public int getItemCount() {

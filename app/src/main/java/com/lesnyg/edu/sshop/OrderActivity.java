@@ -51,7 +51,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         adapter = new RecyclerAdapter(mdb, tvresult);
         recyclerView.setAdapter(adapter);
 
-
         btnreset = findViewById(R.id.btnreset);
         btnreset.setOnClickListener(this);
         btncheck = findViewById(R.id.btcheck);

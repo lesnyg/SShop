@@ -21,12 +21,12 @@ class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     String str = "";
     Cursor cursor;
 
-//    ArrayList<HashMap<String, Object>> arrayList = null;
+    ArrayList<HashMap<String, Object>> arrayList = null;
 //    ArrayList<Integer> arrprice = new ArrayList<>();
-    private ArrayList<ItemData> arrayList;
-    public MainAdapter(ArrayList<ItemData> arrayList) {
-        this.arrayList = arrayList;
-    }
+//    private ArrayList<ItemData> arrayList;
+//    public MainAdapter(ArrayList<ItemData> arrayList) {
+//        this.arrayList = arrayList;
+//    }
 //    public MainAdapter(ArrayList<HashMap<String,Object>> arrayList){
 //        this.arrayList = new ArrayList<HashMap<String, Object>>();
 //        this.arrayList = arrayList;
@@ -65,10 +65,10 @@ class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        MyViewHolder myViewHolder=(MyViewHolder)viewHolder;
-        //myViewHolder.tv3.setText(str);
-        myViewHolder.tv3.setText(arrayList.get(i).getName());
-        myViewHolder.tv4.setText(arrayList.get(i).getNum());
+//        MyViewHolder myViewHolder=(MyViewHolder)viewHolder;
+//        //myViewHolder.tv3.setText(str);
+//        myViewHolder.tv3.setText(arrayList.get(i).getName());
+//        myViewHolder.tv4.setText(arrayList.get(i).getNum());
     }
 
     @Override

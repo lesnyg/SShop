@@ -20,8 +20,6 @@ public class OrderListActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-
-
         switch (v.getId()){
             case R.id.btorderlist01:
                 Intent intent = new Intent(this,MainActivity.class);

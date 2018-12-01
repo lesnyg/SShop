@@ -49,20 +49,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainRecycler.setLayoutManager(mainLayoutManager);
         mainRecycler.setHasFixedSize(true);
 
-        ArrayList<ItemData> arrayList=new ArrayList<>();
-        arrayList.add(new ItemData("aaaa","111111"));
-        arrayList.add(new ItemData("bbb","2222"));
-        arrayList.add(new ItemData("ccc","3333"));
-        arrayList.add(new ItemData("ddd","4444"));
-        arrayList.add(new ItemData("eeeee","55555"));
+//        ArrayList<ItemData> arrayList=new ArrayList<>();
+//        arrayList.add(new ItemData("aaaa","111111"));
+//        arrayList.add(new ItemData("bbb","2222"));
+//        arrayList.add(new ItemData("ccc","3333"));
+//        arrayList.add(new ItemData("ddd","4444"));
+//        arrayList.add(new ItemData("eeeee","55555"));
 
-        dbHelper = new MyDBOpenHelper(this);
-        mdb = dbHelper.getWritableDatabase();
-        MainAdapter mainAdapter = new MainAdapter(arrayList);
-
-        mainRecycler.setAdapter(mainAdapter);
-
-
+//        dbHelper = new MyDBOpenHelper(this);
+//        mdb = dbHelper.getWritableDatabase();
+//        MainAdapter mainAdapter = new MainAdapter(arrayList);
+//
+//        mainRecycler.setAdapter(mainAdapter);
+//
+//
         baseLayout = (LinearLayout) findViewById(R.id.baseLayout);
 
         TextView tvdate = findViewById(R.id.tvdate);

@@ -30,7 +30,7 @@ public class EditMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_menu);
 
-        dbHelper = new MyDBOpenHelper(this, "shop.db", null, 2);
+        dbHelper = new MyDBOpenHelper(this);
         mdb = dbHelper.getWritableDatabase();
 
         menu_name = (EditText) findViewById(R.id.menu_name);
@@ -58,11 +58,11 @@ public class EditMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 name = menu_name.getText().toString();
-                query = "Select _id From shop_menu where menu='" + name + "'";
+                query = "Select id From shop_menu where menu='" + name + "'";
                 cursor = mdb.rawQuery(query, null);
                 String idString = "";
                 if (cursor.moveToNext()) idString = cursor.getString(0);
-                mdb.execSQL("Delete from shop_menu where _id=?", new Object[]{idString});
+                mdb.execSQL("Delete from shop_menu where id=?", new Object[]{idString});
                 showmenu();
             }
         });
